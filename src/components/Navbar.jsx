@@ -14,7 +14,6 @@ const Navbar = () => {
     }, [location]);
 
     const navItems = [
-        { name: 'Home', path: '/', hasDropdown: false },
         { name: 'About Us', path: '/about', hasDropdown: false },
         {
             name: 'Courses',
@@ -42,6 +41,7 @@ const Navbar = () => {
                 { name: 'New Zealand', path: '/abroad/new-zealand' },
                 { name: 'Philippines', path: '/abroad/philippines' },
                 { name: 'South Africa', path: '/abroad/south-africa' },
+                { name: 'Brazil', path: '/abroad/brazil' },
             ]
         },
         { name: 'Gallery', path: '/nav-gallery', hasDropdown: false },

@@ -19,7 +19,6 @@ import AeriousTestimonials from './pages/AeriousTestimonials';
 // --- NAVLINK PAGES ---
 import AboutusPage from './navlinks/AboutusPage';
 import Courses from './navlinks/Courses/Courses';
-
 import InstrumentRating from './navlinks/Courses/InstrumentRating';
 import PrivatePilotLICENCE from './navlinks/Courses/PrivatePilotLicense';
 import NightRating from './navlinks/Courses/NightRating';
@@ -28,6 +27,9 @@ import FlightInstructorCourse from './navlinks/Courses/FlightInstructorCourse';
 import FlyingTrainingAbroad from './navlinks/Courses/FlyingTrainingAbroad';
 import NavGallery from './navlinks/NavGallery';
 import ContactPage from './navlinks/ContactPage';
+import GroundSchoolPage from './navlinks/Courses/GroundSchoolPage';
+import AirlinePrepPage from './navlinks/Courses/AirlinePrepPage'; 
+import TypeRatingPage from './navlinks/Courses/TypeRatingPage';
 
 // --- SEPARATE COUNTRY PAGES ---
 import USAPage from './navlinks/AbroadCountries/USAPage';
@@ -36,9 +38,7 @@ import AustraliaPage from './navlinks/AbroadCountries/AustraliaPage';
 import NZPage from './navlinks/AbroadCountries/NZPage';
 import PhilippinesPage from './navlinks/AbroadCountries/PhilippinesPage';
 import SouthAfricaPage from './navlinks/AbroadCountries/SouthAfricaPage';
-import GroundSchoolPage from './navlinks/Courses/GroundSchoolPage';
-import AirlinePrepPage from './navlinks/Courses/AirlinePrepPage'; 
-import TypeRatingPage from './navlinks/Courses/TypeRatingPage'; // <--- NEW IMPORT
+import BrazilPage from './navlinks/AbroadCountries/BrazilPage'; // ← NEW
 
 
 const ScrollToTop = () => {
@@ -85,15 +85,15 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
 
           {/* COURSE PAGES */}
-          <Route path="/courses/groundschool-page" element={<GroundSchoolPage/>} />
+          <Route path="/courses/groundschool-page" element={<GroundSchoolPage />} />
           <Route path="/courses/instrument-rating" element={<InstrumentRating />} />
           <Route path="/courses/private-pilot" element={<PrivatePilotLICENCE />} />
           <Route path="/courses/night-rating" element={<NightRating />} />
           <Route path="/courses/commercial-pilot" element={<CommercialPilotLICENCE />} />
           <Route path="/courses/flight-instructor" element={<FlightInstructorCourse />} />
-          <Route path="/courses/airline-prep" element={<AirlinePrepPage />} /> 
-          <Route path="/courses/type-rating" element={<TypeRatingPage />} /> {/* <--- NEW ROUTE */}
-          
+          <Route path="/courses/airline-prep" element={<AirlinePrepPage />} />
+          <Route path="/courses/type-rating" element={<TypeRatingPage />} />
+
           {/* ABROAD HUB */}
           <Route path="/flying-training-abroad" element={<FlyingTrainingAbroad />} />
 
@@ -104,6 +104,7 @@ function App() {
           <Route path="/abroad/new-zealand" element={<NZPage />} />
           <Route path="/abroad/philippines" element={<PhilippinesPage />} />
           <Route path="/abroad/south-africa" element={<SouthAfricaPage />} />
+          <Route path="/abroad/brazil" element={<BrazilPage />} /> {/* ← NEW */}
         </Routes>
 
         <Footer />

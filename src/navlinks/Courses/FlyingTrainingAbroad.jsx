@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Globe, ArrowRight, ShieldCheck } from 'lucide-react';
-import { Link } from 'react-router-dom'; // 1. Import Link
+import { Link } from 'react-router-dom';
 
 // --- ASSET IMPORTS ---
 import mainHeroImg from '../../assets/FIC-IMG.webp';
@@ -11,6 +11,8 @@ import australiaImg from '../../assets/australia-flight.png';
 import nzImg from '../../assets/nz-flight.jpg';
 import philippinesImg from '../../assets/philippines-flight.png';
 import southAfricaImg from '../../assets/sa-flight.png';
+// Adding a Brazil image for the card background (using one from your gallery)
+import brazilImg from '../../assets/braimg/brazil-01.jpeg';
 
 const FlyingTraining = () => {
   const headerRef = useRef(null);
@@ -38,7 +40,6 @@ const FlyingTraining = () => {
     }
   };
 
-  // 2. Added 'path' property to match your App.js routes
   const destinations = [
     { 
       name: "USA", 
@@ -81,6 +82,14 @@ const FlyingTraining = () => {
       img: southAfricaImg, 
       subtitle: "Vulcan Aviation", 
       content: "Collaborate with Vulcan Aviation for robust, industry-aligned pilot training in one of the most respected aviation environments." 
+    },
+    // --- ADDED BRAZIL DESTINATION ---
+    { 
+      name: "BRAZIL", 
+      path: "/abroad/brazil",
+      img: brazilImg, 
+      subtitle: "Salvador Base", 
+      content: "Partnered with AeroTime Escola de Aviação Civil. Train in controlled airspace alongside real airline traffic at Salvador International." 
     }
   ];
 
@@ -155,17 +164,17 @@ const FlyingTraining = () => {
                  transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                  className="w-full bg-[#1a2e6e] rounded-[2rem] md:rounded-[3.5rem] p-8 md:p-12 text-white relative overflow-hidden group shadow-2xl"
                >
-                  <Globe className="absolute -right-16 -top-16 opacity-10 group-hover:rotate-90 transition-transform duration-[2000ms]" size={250} />
-                  <div className="relative z-10">
-                    <h3 className="text-2xl md:text-3xl font-black uppercase italic mb-6 md:mb-8">Benefits</h3>
-                    <ul className="space-y-4 md:space-y-6">
-                      {["Foreign CPL", "300+ Flying Days", "Controlled Airspace", "Modern Fleets"].map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-3 font-black text-[10px] md:text-xs uppercase tracking-widest">
-                          <ShieldCheck className="text-[#e21d1d]" size={16} /> {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                 <Globe className="absolute -right-16 -top-16 opacity-10 group-hover:rotate-90 transition-transform duration-[2000ms]" size={250} />
+                 <div className="relative z-10">
+                   <h3 className="text-2xl md:text-3xl font-black uppercase italic mb-6 md:mb-8">Benefits</h3>
+                   <ul className="space-y-4 md:space-y-6">
+                     {["Foreign CPL", "300+ Flying Days", "Controlled Airspace", "Modern Fleets"].map((item, idx) => (
+                       <li key={idx} className="flex items-center gap-3 font-black text-[10px] md:text-xs uppercase tracking-widest">
+                         <ShieldCheck className="text-[#e21d1d]" size={16} /> {item}
+                       </li>
+                     ))}
+                   </ul>
+                 </div>
                </motion.div>
             </div>
           </div>
@@ -192,7 +201,6 @@ const FlyingTraining = () => {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12"
         >
           {destinations.map((dest, i) => (
-            // 3. Wrapped with Link component
             <Link to={dest.path} key={i}>
               <motion.div 
                 variants={itemVariants}
