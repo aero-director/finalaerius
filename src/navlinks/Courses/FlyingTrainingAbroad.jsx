@@ -9,7 +9,7 @@ import usaImg from '../../assets/usa-flight.jpg';
 import spainImg from '../../assets/spain-flight.png';
 import australiaImg from '../../assets/australia-flight.png';
 import nzImg from '../../assets/nz-flight.jpg';
-import philippinesImg from '../../assets/philippines-flight.png';
+import philippinesImg from '../../assets/philippines-flight.jpeg';
 import southAfricaImg from '../../assets/sa-flight.png';
 // Adding a Brazil image for the card background (using one from your gallery)
 import brazilImg from '../../assets/braimg/brazil-01.jpeg';

@@ -1,12 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Globe, CheckCircle2, Plane, X, Maximize2 } from 'lucide-react';
-import heroImg from '../../assets/philippines-flight.png';
+import heroImg from '../../assets/philippines-flight.jpeg';
 
 // --- ASSET IMPORTS ---
-import phil from '../../assets/philimg/phil.jpg'; 
-import phil2 from '../../assets/philimg/phil2.jpg';
-import phil3 from '../../assets/philimg/phil3.jpg';
+import phil from '../../assets/philimg/phil1.jpeg'; 
+import phil2 from '../../assets/philimg/phil2.jpeg';
+import phil3 from '../../assets/philimg/phil3.jpeg';
+import phil4 from '../../assets/philimg/phil4.jpeg';
+import phil5 from '../../assets/philimg/phil5.jpeg';
 
 const PhilippinesPage = () => {
   const [selectedImg, setSelectedImg] = useState(null);
@@ -14,7 +16,8 @@ const PhilippinesPage = () => {
   const { scrollYProgress } = useScroll({ target: headerRef, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
-  const galleryImages = [phil, phil2, phil3];
+  // Updated to include all 5 imported images
+  const galleryImages = [phil, phil2, phil3, phil4, phil5];
 
   return (
     <div className="bg-[#fcfcfc] font-sans text-[#1a2e6e] antialiased">
@@ -87,7 +90,7 @@ const PhilippinesPage = () => {
               </p>
             </div>
 
-            {/* --- DYNAMIC GRID (3 Images) --- */}
+            {/* --- DYNAMIC GRID (All Images) --- */}
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               {/* Feature Image */}
               <motion.div
