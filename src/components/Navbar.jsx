@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown, Menu, X, Plus, Minus } from 'lucide-react';
+import { ChevronDown, Menu, X, Plus, Minus, User as UserIcon, LogOut, Radio, Sliders } from 'lucide-react';
 import satiLogo from '../assets/LOGO.webp';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const [mobileDropdown, setMobileDropdown] = useState(null);
+    const { user, logoutUser } = useAuth();
 
     useEffect(() => {
         setIsOpen(false);
@@ -14,6 +16,17 @@ const Navbar = () => {
     }, [location]);
 
     const navItems = [
+        ...(user
+            ? [
+                ...(user.role === 'admin' ? [{ name: 'Admin Deck', path: '/admin', hasDropdown: false }] : []),
+                { name: 'My Profile', path: '/profile', hasDropdown: false },
+                { name: 'RTR 2 Learn', path: '/rtr2', hasDropdown: false },
+                { name: 'RTS 2 Sim', path: '/simulator', hasDropdown: false },
+              ]
+            : [
+                { name: 'Login', path: '/login', hasDropdown: false },
+                { name: 'Sign Up', path: '/signup', hasDropdown: false },
+              ]),
         { name: 'About Us', path: '/about', hasDropdown: false },
         {
             name: 'Courses',
@@ -71,7 +84,41 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-4 z-20">
+                    <div className="flex items-center gap-3 z-20">
+                        {user ? (
+                            <div className="hidden lg:flex items-center gap-2">
+                                <Link
+                                    to="/profile"
+                                    className="flex items-center gap-2 px-3 py-1.5 bg-[#203a8c]/10 hover:bg-[#203a8c]/15 text-[#203a8c] rounded-full text-xs font-bold transition"
+                                >
+                                    {user.avatar ? (
+                                        <img src={user.avatar} alt={user.name} className="w-6 h-6 rounded-full object-cover" />
+                                    ) : (
+                                        <div className="w-6 h-6 rounded-full bg-[#203a8c] text-white flex items-center justify-center text-[10px] font-black">
+                                            {user.name ? user.name.charAt(0) : 'U'}
+                                        </div>
+                                    )}
+                                    <span className="truncate max-w-[100px]">{user.name.split(' ')[0]}</span>
+                                    {user.role === 'admin' ? (
+                                        <span className="text-[9px] bg-red-600 text-white px-1.5 py-0.5 rounded-full font-black uppercase">Admin</span>
+                                    ) : user.isVerified ? (
+                                        <span className="w-2 h-2 rounded-full bg-emerald-500" title="Verified Cadet" />
+                                    ) : null}
+                                </Link>
+                                <button
+                                    onClick={logoutUser}
+                                    title="Log out"
+                                    className="p-1.5 text-gray-400 hover:text-red-600 transition cursor-pointer"
+                                >
+                                    <LogOut size={16} />
+                                </button>
+                            </div>
+                        ) : (
+                            <Link to="/login" className="hidden lg:block text-xs font-bold text-[#203a8c] uppercase tracking-wider hover:text-red-600 transition mr-2">
+                                Log In
+                            </Link>
+                        )}
+
                         <Link to="/contact" className="hidden lg:block">
                             <button className="bg-[#e31e24] text-white px-5 py-2 rounded-sm font-black text-[10px] uppercase tracking-widest shadow-md active:scale-95 transition-transform">
                                 Apply Now
@@ -89,7 +136,7 @@ const Navbar = () => {
                 <ul className="flex items-center justify-center">
                     {navItems.map((item) => (
                         <li key={item.name} className="relative group">
-                            <Link to={item.path} className={`px-6 xl:px-8 py-4 text-[11px] xl:text-[12px] font-bold uppercase tracking-widest flex items-center gap-2 group-hover:bg-[#1a3178] transition-colors ${location.pathname === item.path ? 'text-red-400' : 'text-white'}`}>
+                            <Link to={item.path} className={`px-5 xl:px-7 py-4 text-[11px] xl:text-[12px] font-bold uppercase tracking-widest flex items-center gap-2 group-hover:bg-[#1a3178] transition-colors ${location.pathname === item.path ? 'text-red-400' : 'text-white'}`}>
                                 {item.name}
                                 {item.hasDropdown && <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-200" />}
                             </Link>
@@ -108,15 +155,40 @@ const Navbar = () => {
                 </ul>
             </nav>
 
-            {/* --- MOBILE NAVIGATION DRAWER (NO ANIMATE PRESENCE) --- */}
+            {/* --- MOBILE NAVIGATION DRAWER --- */}
             <div className={`fixed inset-0 bg-[#203a8c]/80 z-[998] lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsOpen(false)} />
             
             <div className={`fixed right-0 top-0 h-full w-[85%] max-w-sm bg-white z-[999] lg:hidden shadow-2xl flex flex-col border-l-4 border-red-500 transition-transform duration-300 transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="p-6 flex flex-col h-full">
-                    <div className="flex justify-between items-center mb-10">
+                    <div className="flex justify-between items-center mb-8">
                         <img src={satiLogo} alt="Logo" className="h-8" />
                         <button onClick={() => setIsOpen(false)} className="text-[#203a8c] p-2"><X size={24} /></button>
                     </div>
+
+                    {user && (
+                        <div className="mb-4 p-3 bg-blue-50 rounded-xl flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                {user.avatar ? (
+                                    <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full object-cover" />
+                                ) : (
+                                    <div className="w-8 h-8 rounded-full bg-[#203a8c] text-white flex items-center justify-center font-bold text-xs">
+                                        {user.name ? user.name.charAt(0) : 'U'}
+                                    </div>
+                                )}
+                                <div>
+                                    <p className="text-xs font-bold text-slate-900">{user.name}</p>
+                                    <p className="text-[10px] text-slate-500 font-mono">@{user.username || user.email.split('@')[0]}</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={logoutUser}
+                                className="text-xs font-bold text-red-600 hover:text-red-700 flex items-center gap-1"
+                            >
+                                <LogOut size={14} />
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    )}
 
                     <ul className="space-y-1 overflow-y-auto flex-grow pr-2">
                         {navItems.map((item) => (
@@ -141,7 +213,7 @@ const Navbar = () => {
                             </li>
                         ))}
                     </ul>
-                    <div className="pt-8">
+                    <div className="pt-6">
                         <Link to="/contact"><button className="w-full bg-[#e31e24] text-white py-4 rounded-sm font-black uppercase tracking-widest text-xs shadow-lg">Begin Enrollment</button></Link>
                     </div>
                 </div>
